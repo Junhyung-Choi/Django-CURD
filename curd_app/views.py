@@ -52,3 +52,8 @@ def update(request,id):
     update_data.save()
     return redirect('main')
 
+def delete(request,id):
+    delete_data = get_object_or_404(Blog,pk=id)
+    delete_data.delete()
+    return redirect("main")
+
