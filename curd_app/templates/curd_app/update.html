@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Page</title>
+</head>
+<body>
+    <h1>글을 수정해보자!</h1>
+    <form action="{% url 'update' id %}" method="POST">
+        {%csrf_token%}
+        <p>제목: <input type="text" name = "title" value = "{{title}}"></p>
+        <p>작성자: <input type = "text" name = "writer" value="{{writer}}"></p>
+        <p>본문: <textarea name="body" cols="30" rows="10">{{body}}</textarea> </p>
+        <button type="submit">작성</button>
+    </form>
+</body>
+</html>

@@ -13,5 +13,7 @@
         <p>{{i.title}}</p>
         <a href = "{% url 'detail' i.id %}">more</a>
     {% endfor %}
+    <br><br>
+    <a href = "{% url 'create_page' %}">글 작성하러 가기</a>
 </body>
 </html>
