@@ -15,9 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from curd_app.views import main
+from curd_app.views import main,detail
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',main,name="main"),
+    path("detail/<int:id>",detail,name="detail"),
 ]
