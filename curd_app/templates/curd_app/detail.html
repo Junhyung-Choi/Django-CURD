@@ -38,6 +38,7 @@
         <p>현재 지원자 수: {{currentapplicant}}</p>
         <p>가게 주인: {{owner}}</p>
     </div>
+    <a href = "{% url 'main' %}">메인 페이지로 돌아가기</a>
     <a href = "{% url 'update_page' id %}">수정하러 가기</a>
     <a href = "{% url 'delete' id %}">삭제하기</a>
 </body>

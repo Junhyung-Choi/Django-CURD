@@ -73,11 +73,11 @@ def apply(request,id):
     apply_data.currentapplicant += 1
     apply_data.isapply = True
     apply_data.save()
-    return redirect("main")
+    return redirect("detail",id)
 
 def deapply(request,id):
     apply_data = get_object_or_404(Store, pk = id)
     apply_data.currentapplicant -= 1
     apply_data.isapply = False
     apply_data.save()
-    return redirect("main")
+    return redirect("detail",id)

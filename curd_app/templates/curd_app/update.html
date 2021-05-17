@@ -1,13 +1,15 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href = "{% static 'curd_app/styles.css' %}">
     <title>Update Page</title>
 </head>
 <body>
-    <h1>글을 수정해보자!</h1>
+    <h1>알바 모집글을 수정해주세요</h1>
     <form action="{% url 'update' id %}" method="POST">
         {%csrf_token%}
         <p>가게 이름: <input type="text" name = "tradename" value="{{tradename}}"></p>
