@@ -5,16 +5,39 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href = "{% static 'curd_app/styles.css' %}">
     <title>Detail Page</title>
 </head>
 <body>
-    <h1>{{tradename}}</h1>
-    <p>{{owner}}</p>
-    <p>{{location}}</p>
-    <p>{{jobdetail}}</p>
-    <p>{{wage}}</p>
-    <p>{{currentapplicant}}</p>
-    <a href = "{% url 'apply' id %}">지원하기</a>
+    <div class = "information">
+        <div class = "InfoHeader">
+            <div class = "horizon aside">
+                {% if isapply %}
+                    <h1>{{tradename}} (지원중)</h1>
+                {% else %}
+                    <h1>{{tradename}}</h1>
+                {% endif %}
+                <h3>위치: {{location}}</h3>
+            </div>
+            <div class = "horizon apply">
+                <h1>임금</h1>
+                <h2>{{wage}}</h2>
+                {% if isapply %}
+                    <a href = "{% url 'deapply' id %}">지원취소하기</a>
+                {% else %}
+                    <a href = "{% url 'apply' id %}">지원하기</a>
+                {% endif %}
+            </div>
+        </div>
+        <hr style="clear:both">
+        <div class = "detail">
+            <h4>상세요강</h4>
+            <p>{{jobdetail|linebreaks}}</p>
+        </div>
+        <hr>
+        <p>현재 지원자 수: {{currentapplicant}}</p>
+        <p>가게 주인: {{owner}}</p>
+    </div>
     <a href = "{% url 'update_page' id %}">수정하러 가기</a>
     <a href = "{% url 'delete' id %}">삭제하기</a>
 </body>

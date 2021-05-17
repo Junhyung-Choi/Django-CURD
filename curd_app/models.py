@@ -19,6 +19,7 @@ class Store(models.Model):
     jobdetail = models.TextField()
     wage = models.IntegerField()
     currentapplicant = models.IntegerField()
+    isapply = models.BooleanField(default=False)
 
     def __str__(self):
         return self.tradename

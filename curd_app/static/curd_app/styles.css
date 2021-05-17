@@ -1,0 +1,48 @@
+body{
+    text-align: center;
+    background: beige;
+}
+
+.container {
+    display: flex;
+    justify-content:center;
+    border: solid;
+    border-radius: 10px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.box {
+    margin: 20px;
+    border: black solid 2px;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: white;
+}
+
+.information {
+    max-width: 1000px;
+    margin: 0 auto; 
+    margin-top: 50px; 
+    border: black solid 10px; 
+    padding-bottom: 30px;
+}
+
+.InfoHeader {
+    margin-bottom: 20px;
+}
+
+.horizon {
+    float:left;
+}
+
+.aside{
+    margin-top: 20px;
+    width: 65%;
+}
+
+.apply{
+    border-left: rgb(134, 134, 134) solid 1px;
+    width: 30%;
+    padding-bottom: 10px;
+}

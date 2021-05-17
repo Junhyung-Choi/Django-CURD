@@ -15,8 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from curd_app.views import main,detail,create_page,create,update_page,update,delete,apply
-
+from curd_app.views import main,detail,create_page,create,update_page,update,delete,apply,deapply
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', main, name="main"),
@@ -27,4 +26,5 @@ urlpatterns = [
     path("update/<int:id>/", update, name = "update"),
     path("delete/<int:id>/", delete, name = "delete"),
     path("apply/<int:id>/", apply, name = "apply"),
+    path("deapply/<int:id>/", deapply, name = "deapply"),    
 ]
