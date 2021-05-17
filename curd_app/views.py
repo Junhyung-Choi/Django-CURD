@@ -1,22 +1,26 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Blog
+from .models import Blog,Store
 from django.utils import timezone
 
 # Create your views here.
 def main(request):
     blogs = Blog.objects.all()
+    stores = Store.objects.all()
     context = {
-        "blogs": blogs
+        "blogs": blogs,
+        "stores": stores,
     }
     return render(request, 'curd_app/main.html',context)
 
 def detail(request,id):
-    detail_data = get_object_or_404(Blog,pk=id)
+    detail_data = get_object_or_404(Store,pk=id)
     context = {
-        "title": detail_data.title,
-        "writer": detail_data.writer,
-        "body": detail_data.body,
-        "pub_date": detail_data.pub_date,
+        "tradename": detail_data.tradename,
+        "owner": detail_data.owner,
+        "location": detail_data.location,
+        "jobdetail": detail_data.jobdetail,
+        "wage": detail_data.wage,
+        "currentapplicant": detail_data.currentapplicant,
         "id": detail_data.id,
     }
     return render(request, 'curd_app/detail.html',context)
@@ -25,35 +29,47 @@ def create_page(request):
     return render(request, 'curd_app/create.html')
 
 def create(request):
-    new_data = Blog()
-    new_data.title = request.POST['title']
-    new_data.writer = request.POST['writer']
-    new_data.body = request.POST['body']
-    new_data.pub_date = timezone.now()
+    new_data = Store()
+    new_data.tradename = request.POST['tradename']
+    new_data.owner = request.POST['owner']
+    new_data.location = request.POST['tradename']
+    new_data.jobdetail = request.POST['jobdetail']
+    new_data.wage = request.POST['wage']
+    new_data.currentapplicant = request.POST['currentapplicant']
     new_data.save()
     return redirect('main')
 
 def update_page(request,id):
-    update_data = get_object_or_404(Blog, pk = id)
+    update_data = get_object_or_404(Store, pk = id)
     context = {
         'id': id,
-        'title': update_data.title,
-        "writer": update_data.writer,
-        "body": update_data.body,
+        "tradename": update_data.tradename,
+        "owner": update_data.owner,
+        "location": update_data.location,
+        "jobdetail": update_data.jobdetail,
+        "wage": update_data.wage,
+        "currentapplicant": update_data.currentapplicant,
     }
     return render(request,'curd_app/update.html',context)
 
 def update(request,id):
-    update_data = get_object_or_404(Blog, pk=id)
-    update_data.title = request.POST["title"]
-    update_data.writer = request.POST['writer']
-    update_data.body = request.POST['body']
-    update_data.pub_date = timezone.now()
+    update_data = get_object_or_404(Store, pk=id)
+    update_data.tradename = request.POST['tradename']
+    update_data.owner = request.POST['owner']
+    update_data.location = request.POST['tradename']
+    update_data.jobdetail = request.POST['jobdetail']
+    update_data.wage = request.POST['wage']
+    update_data.currentapplicant = request.POST['currentapplicant']
     update_data.save()
     return redirect('main')
 
 def delete(request,id):
-    delete_data = get_object_or_404(Blog,pk=id)
+    delete_data = get_object_or_404(Store,pk=id)
     delete_data.delete()
     return redirect("main")
 
+def apply(request,id):
+    apply_data = get_object_or_404(Store, pk = id)
+    apply_data.currentapplicant += 1
+    apply_data.save()
+    return redirect("main")

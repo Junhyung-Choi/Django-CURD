@@ -8,10 +8,13 @@
     <title>Detail Page</title>
 </head>
 <body>
-    <p>{{title}}</p>
-    <p>{{writer}}</p>
-    <p>{{pub_date}}</p>
-    <p>{{body}}</p>
+    <h1>{{tradename}}</h1>
+    <p>{{owner}}</p>
+    <p>{{location}}</p>
+    <p>{{jobdetail}}</p>
+    <p>{{wage}}</p>
+    <p>{{currentapplicant}}</p>
+    <a href = "{% url 'apply' id %}">지원하기</a>
     <a href = "{% url 'update_page' id %}">수정하러 가기</a>
     <a href = "{% url 'delete' id %}">삭제하기</a>
 </body>

@@ -10,9 +10,12 @@
     <h1>글을 수정해보자!</h1>
     <form action="{% url 'update' id %}" method="POST">
         {%csrf_token%}
-        <p>제목: <input type="text" name = "title" value = "{{title}}"></p>
-        <p>작성자: <input type = "text" name = "writer" value="{{writer}}"></p>
-        <p>본문: <textarea name="body" cols="30" rows="10">{{body}}</textarea> </p>
+        <p>가게 이름: <input type="text" name = "tradename" value="{{tradename}}"></p>
+        <p>사장 이름: <input type = "text" name = "owner" value="{{owner}}"></p>
+        <p>가게 위치: <input type = "text" name = "location" value="{{location}}"></p>
+        <p>상세 요강: <textarea name="jobdetail" cols="30" rows="10">{{jobdetail}}</textarea> </p>
+        <p>시급: <input type = "number" name = "wage" value="{{wage}}"></p>
+        <p>현재 지원자 수: <input type = "number" name = "currentapplicant" value="{{currentapplicant}}"></p>
         <button type="submit">작성</button>
     </form>
 </body>

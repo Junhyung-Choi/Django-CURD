@@ -6,14 +6,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Main Page</title>
+    <style>
+        .container {display: flex; justify-content:left;}
+        .box {margin: 20px;}
+    </style>
 </head>
 <body>
     <p>메인페이지입니다.</p>
-    {% for i in blogs %}
-        <p>{{i.title}}</p>
-        <a href = "{% url 'detail' i.id %}">more</a>
+    <div class = "container">
+    {% for store in stores %}
+        <div class = "box">
+            <p>{{store.tradename}}</p>
+            <a href = "{% url 'detail' store.id %}">자세히 알아보기</a>
+        </div>
     {% endfor %}
+    </div>
     <br><br>
-    <a href = "{% url 'create_page' %}">글 작성하러 가기</a>
+    <a href = "{% url 'create_page' %}">알바모집 작성하러 가기</a>
 </body>
 </html>
