@@ -33,10 +33,24 @@
         <div class = "detail">
             <h4>상세요강</h4>
             <p>{{jobdetail|linebreaks}}</p>
+            <img src = "{{image.url}}" width = 300 height = 300>
         </div>
         <hr>
         <p>현재 지원자 수: {{currentapplicant}}</p>
         <p>가게 주인: {{owner}}</p>
+        {% for comment in comments %}
+            <p> {{comment.user}} : {{comment.content}} {{comment.date}}</p>
+            <a href = "{% url 'delete_comment' id comment.id %}">삭제</a>
+        {% endfor %}
+
+        <hr>
+
+        <form action="{% url 'create_comment' id %}" method="POST">
+            {%csrf_token%}
+            <p>작성자 이름: <input type="text" name = "user"></p>
+            <p>댓글 내용: <input type = "text" name = "content"></p>
+            <button type="submit">작성</button>
+        </form>
     </div>
     <a href = "{% url 'main' %}">메인 페이지로 돌아가기</a>
     <a href = "{% url 'update_page' id %}">수정하러 가기</a>

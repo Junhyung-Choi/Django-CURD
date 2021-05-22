@@ -15,7 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from curd_app.views import main,detail,create_page,create,update_page,update,delete,apply,deapply
+from curd_app.views import *
+
+from django.conf import settings
+from django.conf.urls.static import static
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', main, name="main"),
@@ -26,5 +31,9 @@ urlpatterns = [
     path("update/<int:id>/", update, name = "update"),
     path("delete/<int:id>/", delete, name = "delete"),
     path("apply/<int:id>/", apply, name = "apply"),
-    path("deapply/<int:id>/", deapply, name = "deapply"),    
+    path("deapply/<int:id>/", deapply, name = "deapply"),
+    path("detail/<int:id>/comments/create/", create_comment, name = "create_comment"),
+    path("detail/<int:id>/comments/delete/<int:comment_id>", delete_comment, name = "delete_comment"),     
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
