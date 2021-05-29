@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Blog,Store,Comment
 from django.utils import timezone
+from django.contrib.auth.forms import AuthenticationForm, UserChangeForm, UserCreationForm
+from django.contrib.auth import login,logout,authenticate
 
 # Create your views here.
 def main(request):
@@ -102,4 +104,35 @@ def delete_comment(request,id,comment_id):
     comment.delete()
     return redirect('detail',id)
 
+def master(request):
+    return render(request, 'curd_app/master.html')
+
+def login_view(request):
+    if request.method == "POST":
+        form = AuthenticationForm(request= request, data = request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get("username")
+            password = form.cleaned_data.get("password")
+            user = authenticate(request=request, username = username, password = password)
+            if user is not None:
+                login(request,user)
+            return redirect("master")
+    else:
+        form = AuthenticationForm()
+        return render(request, 'curd_app/login.html', {'form' : form})
+
+def logout_view(request):
+    logout(request)
+    return redirect("master")
+
+def signup_view(request):
+    if request.method == "POST":
+        form =UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request,user)
+        return redirect("master")
+    else:
+        form = UserCreationForm()
+        return render(request, 'curd_app/signup.html', {'form': form})
 

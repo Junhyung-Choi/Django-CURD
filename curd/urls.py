@@ -33,7 +33,11 @@ urlpatterns = [
     path("apply/<int:id>/", apply, name = "apply"),
     path("deapply/<int:id>/", deapply, name = "deapply"),
     path("detail/<int:id>/comments/create/", create_comment, name = "create_comment"),
-    path("detail/<int:id>/comments/delete/<int:comment_id>", delete_comment, name = "delete_comment"),     
+    path("detail/<int:id>/comments/delete/<int:comment_id>", delete_comment, name = "delete_comment"),
+    path('master/', master, name = "master"),
+    path('login/',login_view, name = "login"),
+    path('logout/',logout_view, name = "logout"),
+    path('signup/',signup_view, name = "signup"),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
