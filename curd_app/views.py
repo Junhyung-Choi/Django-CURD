@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Blog,Store
+from .models import Blog,Store,Comment
 from django.utils import timezone
+from django.contrib.auth.forms import AuthenticationForm, UserChangeForm, UserCreationForm
+from django.contrib.auth import login,logout,authenticate
 
 # Create your views here.
 def main(request):
@@ -13,6 +15,7 @@ def main(request):
 
 def detail(request,id):
     detail_data = get_object_or_404(Store,pk=id)
+    comments = Comment.objects.filter(store_id = id)
     context = {
         "tradename": detail_data.tradename,
         "owner": detail_data.owner,
@@ -22,6 +25,8 @@ def detail(request,id):
         "currentapplicant": detail_data.currentapplicant,
         "id": detail_data.id,
         "isapply": detail_data.isapply,
+        "comments": comments,
+        "image": detail_data.image,
     }
     return render(request, 'curd_app/detail.html',context)
 
@@ -36,6 +41,7 @@ def create(request):
     new_data.jobdetail = request.POST['jobdetail']
     new_data.wage = request.POST['wage']
     new_data.currentapplicant = request.POST['currentapplicant']
+    new_data.image = request.FILES['image']
     new_data.save()
     return redirect('main')
 
@@ -49,6 +55,7 @@ def update_page(request,id):
         "jobdetail": update_data.jobdetail,
         "wage": update_data.wage,
         "currentapplicant": update_data.currentapplicant,
+        'image': update_data.image,
     }
     return render(request,'curd_app/update.html',context)
 
@@ -60,6 +67,7 @@ def update(request,id):
     update_data.jobdetail = request.POST['jobdetail']
     update_data.wage = request.POST['wage']
     update_data.currentapplicant = request.POST['currentapplicant']
+    update_data.image = request.FILES['image']
     update_data.save()
     return redirect('main')
 
@@ -81,3 +89,50 @@ def deapply(request,id):
     apply_data.isapply = False
     apply_data.save()
     return redirect("detail",id)
+
+def create_comment(request,id):
+    new_comment = Comment()
+    new_comment.store_id = Store.objects.get(pk=id)
+    new_comment.user = request.POST['user']
+    new_comment.content = request.POST['content']
+    new_comment.date = timezone.now()
+    new_comment.save()
+    return redirect("detail",id)
+
+def delete_comment(request,id,comment_id):
+    comment = get_object_or_404(Comment, pk = comment_id)
+    comment.delete()
+    return redirect('detail',id)
+
+def master(request):
+    return render(request, 'curd_app/master.html')
+
+def login_view(request):
+    if request.method == "POST":
+        form = AuthenticationForm(request= request, data = request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get("username")
+            password = form.cleaned_data.get("password")
+            user = authenticate(request=request, username = username, password = password)
+            if user is not None:
+                login(request,user)
+            return redirect("master")
+    else:
+        form = AuthenticationForm()
+        return render(request, 'curd_app/login.html', {'form' : form})
+
+def logout_view(request):
+    logout(request)
+    return redirect("master")
+
+def signup_view(request):
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request,user)
+        return redirect("master")
+    else:
+        form = UserCreationForm()
+        return render(request, 'curd_app/signup.html', {'form': form})
+
